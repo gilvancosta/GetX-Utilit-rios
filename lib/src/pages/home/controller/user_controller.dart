@@ -18,7 +18,7 @@ class UserController extends GetxController with StateMixin<List<UserEntity>>, S
     required this.userRepository,
   });
 
-  bool get loading => _loading.value;
+  bool get isLoading => _loading.value;
 
   @override
   void onInit() {
@@ -62,7 +62,11 @@ class UserController extends GetxController with StateMixin<List<UserEntity>>, S
 
   @override
   Future<void> onEndScroll() async {
-    _page.value++;
+    if (isLoading) {
+      _page.value++;
+    }
+
+   
     // return super.onEndScroll();
   }
 }

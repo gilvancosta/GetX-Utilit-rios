@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
               itemBuilder: (context, index) {
                 if (index == totalItems) {
                   return Obx(() => Visibility(
-                        visible: controller.loading,
+                        visible: controller.isLoading,
                         child: const Center(
                           child: Padding(
                               padding: EdgeInsets.only(bottom: 16.0),
