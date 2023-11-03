@@ -16,43 +16,44 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Lista de Usuários'),
-        ),
-        body: controller.obx(
-          (state) {
-            final totalItems = state?.length ?? 0;
-            return ListView.builder(
-              controller: controller.scroll,
-              itemCount: totalItems + 1,
-              itemBuilder: (context, index) {
-                if (index == totalItems) {
-                  return Obx(() => Visibility(
-                        visible: controller.isLoading,
-                        child: const Center(
-                          child: Padding(
-                              padding: EdgeInsets.only(bottom: 16.0),
-                              child: Text(
-                                'Carregando...',
-                                style: TextStyle(fontSize: 16.0, color: Colors.red),
-                              )),
-                        ),
-                      ));
-                }
+      appBar: AppBar(
+        title: const Text('Lista de Usuários'),
+      ),
+      body: controller.obx(
+        (state) {
+          final totalItems = state?.length ?? 0;
+          return ListView.builder(
+            controller: controller.scroll,
+            itemCount: totalItems + 1,
+            itemBuilder: (context, index) {
+              if (index == totalItems) {
+                return Obx(() => Visibility(
+                      visible: controller.isLoading,
+                      child: const Center(
+                        child: Padding(
+                            padding: EdgeInsets.only(bottom: 16.0),
+                            child: Text(
+                              'Carregando...',
+                              style: TextStyle(fontSize: 16.0, color: Colors.red),
+                            )),
+                      ),
+                    ));
+              }
 
-                final user = state?[index];
-                return ListTile(
-                  title: Text('${user?.id} - ${user?.name}'),
-                  subtitle: Text(user?.email ?? 'Sem email'),
-                );
-              },
-            );
-          },
-          // onError: (error) => Center(child: Text(error)),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: controller.nextPage,
-          child: const Icon(Icons.add),
-        ));
+              final user = state?[index];
+              return ListTile(
+                title: Text('${user?.id} - ${user?.name}'),
+                subtitle: Text(user?.email ?? 'Sem email'),
+              );
+            },
+          );
+        },
+        // onError: (error) => Center(child: Text(error)),
+      ),
+/*       floatingActionButton: FloatingActionButton(
+        onPressed: controller.nextPage,
+        child: const Icon(Icons.add),
+      ), */
+    );
   }
 }

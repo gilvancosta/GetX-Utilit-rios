@@ -43,18 +43,17 @@ class UserController extends GetxController with StateMixin<List<UserEntity>>, S
   void nextPage() => _page.value++;
 
   Future<void> findUser() async {
-
     _loading.value = true;
 
     final result = await userRepository.getUsers(_page.value, _limit);
-    
+
     final stateResult = state ?? <UserEntity>[];
 // adiciona a lista de usuários no estado
     stateResult.addAll(result);
 
     // change informa a alteração de estado
     change(stateResult, status: RxStatus.success());
-      _loading.value = false;
+    _loading.value = false;
   }
 
   @override
@@ -62,11 +61,10 @@ class UserController extends GetxController with StateMixin<List<UserEntity>>, S
 
   @override
   Future<void> onEndScroll() async {
-    if (isLoading) {
+    if (!isLoading) {
       _page.value++;
     }
 
-   
     // return super.onEndScroll();
   }
 }
