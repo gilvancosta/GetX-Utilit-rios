@@ -9,9 +9,12 @@ class UserRepository {
     required this.dio,
   });
 
-  Future<List<UserEntity>> getUsers() async {
+  Future<List<UserEntity>> getUsers(int page, int limit) async {
     try {
-      final result = await dio.get('/users');
+      final result = await dio.get('/users', queryParameters: {
+        'page': page,
+        'limit': limit,
+      });
 
       return result.data.map<UserEntity>((user) => UserEntity.fromMap(user)).toList();
     } on DioException catch (e, s) {
